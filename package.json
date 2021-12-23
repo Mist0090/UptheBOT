@@ -11,14 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@n-h-n/discord.js-12.5.3": "^12.5.3",
     "discord.js": "^13.3.1",
     "fs": "0.0.1-security",
     "node": "^17.1.0",
-    "node-fetch": "^3.1.0",
-    "playwright": "^1.16.3",
-    "request": "^2.88.2",
-    "serp": "^2.2.1",
-    "ws": "^8.2.3"
+    "pm2": "^5.1.2"
   }
 }
