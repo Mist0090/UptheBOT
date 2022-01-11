@@ -3,7 +3,7 @@ const { Client, Intents, MessageEmbed, WebhookClient, MessageActionRow, MessageB
   const prefix = "p."
   const searchcmd = "p.search"  
 
-async function handle(message) {
+async function handle(message, client) {
     if  (message.author.bot) {
     return;
   }
@@ -12,7 +12,7 @@ if (message.content === "p.botcleanup") {
     // コマンドが送信されたチャンネルから直近100件(上限)メッセージを取得する
      const messages = await message.channel.messages.fetch({ limit: 100 })
      // ボット以外が送信したメッセージを抽出
-     const filtered = messages.filter(message => !message.author.user)
+     const filtered = messages.filter(message => message.author.bot)
      // それらのメッセージを一括削除
      try{
      await message.channel.bulkDelete(filtered, true)
@@ -23,7 +23,7 @@ if (message.content === "p.botcleanup") {
     .setFooter('Powered by Replit')
     .setDescription("クリーンアップに失敗しました")
     .addFields(
-      {name: "エラー内容", value: e.toString()}
+      {name: "エラー内容", value: "```" + e.toString() + "```"}
       )
       .setColor('RANDOM')
     console.log(e)

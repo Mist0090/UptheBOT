@@ -10,8 +10,8 @@ function handle(message) {
       .setAuthor('PowerDyno', 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
 	     .setDescription('PowerDyno のバージョンです')
        .addFields(
-         {name: 'ビルド', value: '2.1.0.2784.12', },
-         {name: 'バージョン', value: '2.1.0', }
+         {name: 'ビルド', value: '2.1.1.2790.100', },
+         {name: 'バージョン', value: '2.1.1', }
          )
         .setColor('RANDOM')
        .setTimestamp(new Date())

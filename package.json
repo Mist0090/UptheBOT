@@ -1,19 +1,28 @@
 {
-  "name": "Discordjs-starter",
+  "name": "PowerDyno",
   "version": "1.0.0",
-  "description": "",
-  "private": true,
+  "description": "PowerDyno BOT",
   "main": "index.js",
+  "dependencies": {
+    "discord.js": "^13.5.1",
+    "fs": "^0.0.1-security",
+    "node": "^17.1.0",
+    "pm2": "^5.1.2",
+    "ws": "^8.2.3"
+  },
+  "devDependencies": {},
   "scripts": {
-    "start": "npx node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlightSkych/PowerDyno.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "discord.js": "^13.3.1",
-    "fs": "0.0.1-security",
-    "node": "^17.1.0",
-    "pm2": "^5.1.2"
-  }
+  "bugs": {
+    "url": "https://github.com/FlightSkych/PowerDyno/issues"
+  },
+  "homepage": "https://github.com/FlightSkych/PowerDyno#readme"
 }

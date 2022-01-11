@@ -1,13 +1,13 @@
 const { Client, Intents, MessageEmbed, WebhookClient, MessageActionRow, MessageButton, Permissions } = require('discord.js');
 
-function handle(message) {
+function handle(message, client) {
     if  (message.author.bot) {
     return;
   }
   if (message.content === "p.help") {
     const embed = new MessageEmbed()
-       .setTitle('PowerDyno ヘルプ')
-      .setAuthor('PowerDyno', 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+       .setTitle(`${client.user.username} ヘルプ`)
+      .setAuthor(client.user.username, client.user.displayAvatarURL())
 	     .setDescription('PowerDyno のヘルプ')
        .addFields(
          {name: 'p.help', value: 'このコマンドヘルプ', inline: true},
@@ -20,12 +20,14 @@ function handle(message) {
          {name: 'p.invite', value: '招待リンクを送信します', inline: true},
          {name: 'p.search', value: 'Google検索ページを表示します', inline: true},
          {name: 'p.cleanup', value: 'チャンネルのメッセージを100個削除します (14日前のメッセージは削除不可能）', inline: true},
+                  {name: 'p.typing', value: '**PowerDyno**が入力中を表示します', inline: true},
          {name: 'p.ban', value: 'メンバーをBANできます', inline: true},
          {name: 'p.gban', value: 'メンバーをGBANできます（BOT運営者のみ）', inline: true},
+         {name: 'p.botcleanup', value: 'ボットのメッセージを100個削除します（クリーンアップの仕様適用)', inline: true},
          {name: 'p.eval', value: 'コードを実行します（BOT運営者のみ）', inline: true})
         .setColor('RANDOM')
        .setTimestamp(new Date())
-       .setFooter('Powered by Replit', 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+       .setFooter("Developed by Flight Sky", client.user.displayAvatarURL())
  
       message.channel.send({embeds: [embed] })
   }

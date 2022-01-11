@@ -5,6 +5,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
   const searchcmd = "p.search"  
 
 
+
 async function handle(message, client) {
     if  (message.author.bot) {
     return;

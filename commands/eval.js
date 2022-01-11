@@ -3,7 +3,7 @@ const { Client, Intents, MessageEmbed, WebhookClient, MessageActionRow, MessageB
   const prefix = "p."
   const searchcmd = "p.search"  
 
-async function handle(message) {
+async function handle(message, client) {
     if  (message.author.bot) {
     return;
   }
