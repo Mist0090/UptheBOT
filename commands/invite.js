@@ -12,8 +12,9 @@ if (message.content === "p.invite") {
     .setTitle("PowerDyno を招待する")
     .setDescription("PowerDyno の招待リンクを送信します")
     .setFields(
-      { name: "管理者権限あり", value: "https://discord.com/api/oauth2/authorize?client_id=905354930309701662&permissions=8&scope=bot"},
-      {name: "推奨リンク", value: "https://discord.com/api/oauth2/authorize?client_id=905354930309701662&permissions=540273750&scope=bot"}
+      { name: "管理者権限あり", value: "[アクセス](https://discord.com/api/oauth2/authorize?client_id=905354930309701662&permissions=8&scope=bot)"},
+      {name: "推奨リンク", value: "[アクセス](https://discord.com/api/oauth2/authorize?client_id=905354930309701662&permissions=540273750&scope=bot)"},
+      {name: "権限を選ぶ", value: "[アクセス](https://discord.com/api/oauth2/authorize?client_id=905354930309701662&permissions=16449724743598&scope=bot)"}
 )
 .setColor('RANDOM')
 .setFooter('Powered by Replit')

@@ -13,24 +13,24 @@ async function handle(message, client) {
     if (message.author.id === "877173383635304539"){
       const DevMess = new MessageEmbed()
     .setTitle("実行中")
-    .setAuthor("PowerDyno", 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+    .setAuthor("PowerDyno", client.user.displayAvatarURL())
     .setFooter('Powered by Replit')
       .setColor('RANDOM')
             const DevMess1 = new MessageEmbed()
     .setTitle("実行完了")
-    .setAuthor("PowerDyno", 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+    .setAuthor("PowerDyno", client.user.displayAvatarURL())
     .setFooter('Powered by Replit')
       .setColor('RANDOM')
       const runmessage = await message.channel.send({embeds: [DevMess]});
       let str = message.content
       let cmd = str.substr( 7 );
-      eval(cmd);
+      await eval(cmd);
       runmessage.edit({embeds: [DevMess1]})
       return;
     }else{
       const DevOnly = new MessageEmbed()
     .setTitle("このコマンドは使用できません")
-    .setAuthor("PowerDyno", 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+    .setAuthor("PowerDyno", client.user.displayAvatarURL())
     .setFooter('Powered by Replit')
     .setDescription("このコマンドはボット運営者のみ使用できます")
       .setColor('RANDOM')
@@ -40,7 +40,7 @@ async function handle(message, client) {
     catch (e){
       const DevMesserr = new MessageEmbed()
     .setTitle("エラーが発生しました")
-    .setAuthor("PowerDyno", 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+    .setAuthor("PowerDyno", client.user.displayAvatarURL())
     .setFooter(`Powered by Replit. エラー内容: + ${e.toString()}`)
       .setColor('RANDOM')
       message.channel.send({embeds: [DevMesserr]})

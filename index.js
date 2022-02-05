@@ -3,10 +3,14 @@ const http = require("http");
 const fs = require("fs")
 const prefix = "p."
 const searchcmd = "p.search"
+const sgc_name = 'pd-chat-sgc-demo';
+const gateway_id = '707158343952629780';
+const gateway_name = 'super-global-chat-demo';
+const serp = require('serp')
 
 //Require on Discord.js
-const { Client, Intents, MessageEmbed, WebhookClient, MessageActionRow, MessageButton, Permissions } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const { Client, Intents, MessageEmbed, WebhookClient, MessageActionRow, MessageButton, Permissions, Discord, MessageReference } = require('discord.js');
+const client = new Client({ intents: [   Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });
 
 //Http.CreateServer
 http.createServer(function(req, res){
@@ -17,12 +21,8 @@ http.createServer(function(req, res){
 //Client Ready
 client.on("ready", () => {
   console.log(`${client.user.tag} でログインしています。`);
-  client.channels.cache.get('914423290167164929').send("PowerDyno が起動しました。")
-  	   	     client.user.setActivity(`p.help | ${client.ws.ping} ms | 2.1.1`, { type: "PLAYING" }, { status: "online" })
- setTimeout(() => {
-	   	     client.user.setActivity(`p.help | ${client.ws.ping} ms | 2.1.1`, { type: "PLAYING" }, { status: "online" })
-	 }, 7000)
-	 }, 15000)
+  	   	     client.user.setActivity(`p.help | 2.1.5`, { type: "PLAYING" }, { status: "online" })
+})
 //Sleep Function
 function sleep(waitSec, callback) {
   setTimeout(callback, waitSec);
@@ -33,82 +33,46 @@ client.login(process.env.Discord_Token);
 
 //messageCreate
 client.on('messageCreate', async message => {
+  
     if  (message.author.bot) {
     return;
   }
-  try{
-  const embed = new MessageEmbed()
-  .setAuthor('PowerDyno')
-  .setTitle('メッセージが送信されました')
-  .setDescription(`${message.content}`)
-  .setColor('RANDOM')
-  .addFields(
-    { name: 'ユーザー名', value: '<@!' + message.author + '>' + '(' + message.author.tag + ')' + '\n' + 'ID:' + message.author.id},
-    { name: 'チャンネル', value: '<#' + message.channel + '>' + '(' + message.channel.id + ')'},
-    { name: 'メッセージID', value: message.id},
-    { name: '時間', value: message.createdAt.toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })},
-    { name: 'メッセージへ飛ぶ', value: `[メッセージへジャンプ](https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id}) `}
 
-  )
-  const logch_name = "pd-log"
-  message.guild.channels.cache.forEach(async channel => {
-    if (channel.name == logch_name) {
-     await message.guild.channels.cache.find(c => c.name === "pd-log").send(
-{embeds: [embed]}
-      )
-      return;
+ const cmd = require("./commands/logger");
+  cmd.handle(message, client);
   
-}
-    })}
-    catch (e) {
-      
-    }
-  if (message.mentions.has(client.user)) {
-      if (message.reference) return;
-    message.channel.send("プレフィックスは``p.``です")
-    return;
-  }
+
 
   //Author BOT
   if  (message.author.bot) {
     return;
   }
 
+ 
   if (message.content === "p.help") {
-  const cmdhelp = require("./commands/help");
-  cmdhelp.handle(message, client);
+  const cmd = require("./commands/help");
+
+  cmd.handle(message, client);
 }
   if (message.content.startsWith('p.poll ')) {
-      const cmdpoll = require("./commands/poll");
-  cmdpoll.handle(message);
+      const cmd = require("./commands/poll");
+  cmd.handle(message);
   }
   if (message.content.startsWith(searchcmd)) {
-      const cmdsearch = require("./commands/search");
-  cmdsearch.handle(message);
+      const cmd = require("./commands/search");
+  cmd.handle(message);
   }
   if (message.content === "p.ping") {
-          const cmdping = require("./commands/ping");
-  cmdping.handle(message);
+          const cmd = require("./commands/ping");
+  cmd.handle(message);
   }
       if (message.content === "p.おみくじ") {
-          const cmdomi = require("./commands/omi");
-  cmdomi.handle(message);
+          const cmd = require("./commands/omi");
+  cmd.handle(message);
   }
-  if (message.content.match(/おはよ/)) {
-              const cmdohayo = require("./commands/ohayo");
-  cmdohayo.handle(message);
-  }
-    if (message.content.match(/おやすみ/)) {
-              const cmdoyasu = require("./commands/oyasu");
-  cmdoyasu.handle(message);
-  }
-      if (message.content.match(/こんにちは/)) {
-              const cmdkonni = require("./commands/konni");
-  cmdkonni.handle(message);
-  }
-        if (message.content.match(/こんばんは/)) {
-              const cmdkonba = require("./commands/konba");
-  cmdkonba.handle(message);
+  if (message.content.match(/おはよ|おやすみ|こんにちは|こんばんは/)) {
+              const cmd = require("./commands/aisatu");
+  cmd.handle(message);
   }
         if (message.content === "p.invite") {
           const cmd = require("./commands/invite");
@@ -120,12 +84,12 @@ client.on('messageCreate', async message => {
   cmd.handle(message, client);
   }
     if (message.content.startsWith("p.ban")) {
-      const cmdsearch = require("./commands/ban");
-  cmdsearch.handle(message, client);
+      const cmd = require("./commands/ban");
+  cmd.handle(message, client);
   }
       if (message.content.startsWith("p.gban")) {
-      const cmdsearch = require("./commands/gban");
-  cmdsearch.handle(message, client);
+      const cmd = require("./commands/gban");
+  cmd.handle(message, client);
   }
             if (message.content === "p.botcleanup") {
           const cmd = require("./commands/cleanupbot");
@@ -135,14 +99,10 @@ client.on('messageCreate', async message => {
           const cmd = require("./commands/cleanup");
   cmd.handle(message, client);
   }
-    if (message.content === "p.bc") {
-          const cmd = require("./commands/bccleanup");
-  cmd.handle(message, client);
-  }
   
               if (message.content === "p.ver") {
           const cmd = require("./commands/ver");
-  cmd.handle(message);
+  cmd.handle(message, client);
   }
                 if (message.content === "p.webchat") {
           const cmd = require("./commands/webhookgchat");
@@ -158,12 +118,12 @@ client.on('messageCreate', async message => {
   }
   
       if (message.content.startsWith("p.eval")) {
-      const cmdsearch = require("./commands/eval");
-  cmdsearch.handle(message, client);
+      const cmd = require("./commands/eval");
+  cmd.handle(message, client);
   }
-  if (message.channel.name === 'pd-chat') {
-      const cmdsearch = require("./commands/embedgchat");
-  cmdsearch.handle(message, client);
+     if (message.content.startsWith("p.botinvite ")) {
+      const cmd = require("./commands/invitebot");
+  cmd.handle(message, client);
   }
   try {
   const guild_webhook = JSON.parse(fs.readFileSync(`globalchatfiles/${message.guild.id}/webhook.json`))
@@ -173,18 +133,18 @@ client.on('messageCreate', async message => {
   //読み取れなかった場合、ほとんどの場合は参加していないのでリターンする。
 }
 if (message.channel.id == sentchannelid) {
-        const cmdsearch = require("./commands/webhookgchat");
-  cmdsearch.handle(message, client);
+        const cmd = require("./commands/webhookgchat");
+  cmd.handle(message, client);
 }
 })
-//client.on('messageDelete', async message => {
-  // const cmdsearch = require("./commands/messagedelete");
-  //cmdsearch.handle(message, client);
- // })
-//client.on('messageUpdate', async (old_message, new_message) => {
-   //  const cmdsearch = require("./commands/messageedit");
- // cmdsearch.handle(new_message, old_message, client);
-//})
-
-  
-
+client.on('messageCreate', async message => {
+    if (message.channel.name === sgc_name) {
+      const cmd = require("./commands/sgc");
+  cmd.handle(message, client);
+  }
+   if (message.channel.id === gateway_id && message.author != client.user) {
+      const cmd = require("./commands/sgc");
+  cmd.handle(message, client);
+console.log("tensou")
+  }
+})

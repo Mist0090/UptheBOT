@@ -1,10 +1,6 @@
 const { Client, Intents, MessageEmbed, WebhookClient, MessageActionRow, MessageButton, Permissions } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-  const prefix = "p."
-  const searchcmd = "p.search"  
-
-
 async function handle(message, client) {
     if  (message.author.bot) {
     return;
@@ -31,19 +27,10 @@ if (message.channel.name === 'pd-chat') {
           await channel.send({embeds: [embed] })
   }
           catch (e) {
-const FailEmbed = new MessageEmbed()
-    .setTitle("失敗しました")
-    .setAuthor("PowerDyno", 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
-    .setFooter('Powered by Replit')
-    .setDescription("メッセージの送信中にエラーが発生しました")
-    .addFields(
-      {name: "エラー内容", value: e.toString()}
-      )
-      .setColor('RANDOM')
       message.channel.send({embeds: [FailEmbed]})
       const FailEmbed2 = new MessageEmbed()
     .setTitle("PowerDyno BOT エラー")
-    .setAuthor("PowerDyno", 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+    .setAuthor("PowerDyno", client.user.displayAvatarURL)
     .setFooter('Powered by Replit')
     .setDescription("エラーが発生しました")
     .addFields(
@@ -52,7 +39,6 @@ const FailEmbed = new MessageEmbed()
       {name: "チャンネル", value: message.channel.name + "(" + message.channel.id + ")"},
       {name: "ユーザー", value: message.author.tag + "(" + message.author.id + ")"}
       )
-      .setColor('RANDOM')
       .setColor('RANDOM')
     client.channels.cache.get('914423290167164929').send({embeds: [FailEmbed2]})
           }

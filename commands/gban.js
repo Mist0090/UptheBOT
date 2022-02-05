@@ -14,7 +14,7 @@ async function handle(message, client) {
     //成功したとき
               const SafeEmbed = new MessageEmbed()
     .setTitle("成功しました")
-    .setAuthor("PowerDyno", 'https://color.dyno.gg/dynoav?url=https://cdn.discordapp.com/avatars/877173383635304539/a_019ce6c8bf53bbc514628cff7f52cf1d.gif?size=256?r=1.1')
+    .setAuthor("PowerDyno", client.user.displayAvatarURL())
     .setFooter('Powered by Replit')
     .setDescription("メンバーをサーバーからBANしました")
     .setColor('RANDOM')

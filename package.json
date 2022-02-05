@@ -6,8 +6,12 @@
   "dependencies": {
     "discord.js": "^13.5.1",
     "fs": "^0.0.1-security",
+    "json": "^11.0.0",
+    "json-bigint": "^1.0.0",
     "node": "^17.1.0",
+    "playwright": "^1.18.1",
     "pm2": "^5.1.2",
+    "serp": "^2.2.1",
     "ws": "^8.2.3"
   },
   "devDependencies": {},
