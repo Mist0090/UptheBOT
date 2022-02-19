@@ -16,14 +16,14 @@ async function handle(message, client) {
     .setTitle("成功しました")
     .setAuthor("PowerDyno", client.user.displayAvatarURL())
     .setFooter('Powered by Replit')
-    .setDescription("メンバーをサーバーからBANしました")
+    .setDescription("メンバーをサーバーからGBAN解除しました")
     .setColor('RANDOM')
 
-if (command == "gban"){
+if (command == "gunban"){
     if (message.author.id === '877173383635304539') {
  id = args[0]
     if (!args.length){
-      message.channel.send("ユーザーが指定されていません")
+      message.channel.send("ユーザーが指定さ  れていません")
       return;
     }
 
@@ -34,23 +34,30 @@ if (command == "gban"){
       id = id.replace(/!/g, "")
         client.guilds.cache.forEach(async guild => {
   try{
-  await guild.members.ban(id, {reason: "PowerDyno によってGBAN されました"})
+      let str = message.content
+      let cmd = str.substr( 30 );
+  await guild.members.unban(id, {reason: cmd})
+return;
   }catch (e){
     message.channel.send(guild.name + "でBANに失敗しました。")
     message.channel.send(guild.name + "のエラー理由: " + "```" + e.toString() + "```")
-    client.channels.cache.get('914423290167164929').send(guild.name + "でBANに失敗しました")
-        client.channels.cache.get('914423290167164929').send(guild.name + "のエラー理由: " + "```" + e.toString() + "```")
   }
 }) 
       }
-    }
+
     else if (args[0].match(/^\d/)){
-    
-      await client.guilds.cache.forEach(guild =>{
-  guild.members.ban(id, {reason: "PowerDyno によってGBANされました"})
-})
-}}
+     client.guilds.cache.forEach(async guild => {
+try{
+      let str = message.content
+      let cmd = str.substr( 26 );
+  await guild.members.unban(id, {reason: cmd})
+return;
+  }catch (e){
+    message.channel.send(guild.name + "でBANに失敗しました。")
+    message.channel.send(guild.name + "のエラー理由: " + "```" + e.toString() + "```")
+  }})
 }
+}}}
 module.exports = {
   handle
 }

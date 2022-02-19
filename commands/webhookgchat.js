@@ -99,7 +99,11 @@ if (message.channel.id == sentchannelid) {
         disableMentions: "all",
         files: message.attachments.map(attachment => attachment.url),
         })
-      }else{
+      const emoji = client.emojis.cache.find(emoji => emoji.name === "PowerDynoCheck");
+      message.react(emoji)
+      }else if (message.content.match(/おっぱい|クソ|死ね|クズ|バカ|てすとでえええす/)) {
+message.react("❌")
+}else{
       await serverwebhook.send({
         content: String(message.content),
          username: message.author.tag + "(" + message.author.id + ")",
@@ -107,9 +111,9 @@ if (message.channel.id == sentchannelid) {
         disableMentions: "all",
         files: message.attachments.map(attachment => attachment.url),
         })
-      }
       const emoji = client.emojis.cache.find(emoji => emoji.name === "PowerDynoCheck");
       message.react(emoji)
+      }
     }
      catch (error) {
     console.log(error)

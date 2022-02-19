@@ -10,8 +10,8 @@ function handle(message, client) {
       .setAuthor('PowerDyno', client.user.displayAvatarURL())
 	     .setDescription('PowerDyno のバージョンです')
        .addFields(
-         {name: 'ビルド', value: '2.1.5.2817.1 ', },
-        {name: 'バージョン', value: '2.1.5', }
+         {name: '製作者', value: '<@!877173383635304539>(Windows System64#4664 | 877173383635304539)', },
+        {name: 'バージョン', value: '2.1.7', }
          )
         .setColor('RANDOM')
        .setTimestamp(new Date())

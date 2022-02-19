@@ -24,7 +24,7 @@ async function handle(message, client) {
       const runmessage = await message.channel.send({embeds: [DevMess]});
       let str = message.content
       let cmd = str.substr( 7 );
-      await eval(cmd);
+      eval(cmd);
       runmessage.edit({embeds: [DevMess1]})
       return;
     }else{

